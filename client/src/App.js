@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import FetchForm from './containers/fetch_form';
+import Request from './containers/request';
+import Response from './containers/response';
+import FetchTrace from './containers/fetch_trace';
+
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <FetchForm />
+        <Request />
+        <Response />
+        <FetchTrace />
       </div>
     );
   }
