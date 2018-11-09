@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+
+import { runTest } from '../actions/test'
 
 class FetchForm extends Component {
 
@@ -12,7 +14,8 @@ class FetchForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault(); 
-        console.log("Submit for test",this.state)
+        console.log("Submit for test",this.state);
+        this.props.runTest(this.state);
     }
 
     render() {            
@@ -44,5 +47,4 @@ class FetchForm extends Component {
 //     }
 //   }
   
-// export default connect(mapStateToProps,{getHeadlines}) (HeadlinesContainer);
-export default FetchForm;
+export default connect(null,{runTest}) (FetchForm);
