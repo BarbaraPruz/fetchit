@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 class Request extends Component {
 
@@ -7,18 +7,17 @@ class Request extends Component {
         return (
             <React.Fragment>
                 <h1>Request</h1>
+                <p>Method {this.props.method}.  URI {this.props.uri}</p>
             </React.Fragment> 
         )
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//       isLoggedIn: state.user.isLoggedIn,
-//       newsSources: state.user.newsSources,
-//       headlines: state.news.headlines
-//     }
-//   }
+const mapStateToProps = state => {
+     return {
+       method: state.test.method,
+       uri: state.test.uri,
+     }
+}
   
-// export default connect(mapStateToProps,{getHeadlines}) (HeadlinesContainer);
-export default Request;
+export default connect(mapStateToProps) (Request);

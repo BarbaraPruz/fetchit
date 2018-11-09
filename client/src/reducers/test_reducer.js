@@ -9,8 +9,8 @@ export default function testReducer(
 ) {
     console.log("testReducer",action);
     switch (action.type) {
-        // case 'TEST':
-        //     return state.items.concat(state.items.length + 1);
+        case 'RUNNING_TEST':
+             return {...state, method:action.method, uri:action.uri}
  
         default:
             return state;
