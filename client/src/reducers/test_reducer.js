@@ -1,7 +1,7 @@
 export default function testReducer(
     state = {
-        method: 'get',
-        testResponseCode: 200,
+        checkForOK: '',
+        testResponseCode: '',
         uri: '',
         responsePayload: ''
     },
@@ -9,9 +9,15 @@ export default function testReducer(
 ) {
     console.log("testReducer",action);
     switch (action.type) {
-        case 'RUNNING_TEST':
-             return {...state, method:action.method, uri:action.uri}
- 
+        case 'RUNNING_TEST_CHECK':
+             return {...state, checkForOK:true, uri:action.uri}
+
+        case 'RUN_TEST_RESULTS':
+             return {...state, responsePayload:action.payload.message}
+
+        case 'RUNNING_TEST_NO_CHECK':
+             return {...state, checkForOK:false, uri:action.uri}
+            
         default:
             return state;
     }

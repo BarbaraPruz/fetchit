@@ -7,7 +7,7 @@ class Request extends Component {
         return (
             <React.Fragment>
                 <h1>Request</h1>
-                <p>Method {this.props.method}.  URI {this.props.uri}</p>
+                <p>URI {this.props.uri}</p>
             </React.Fragment> 
         )
     }
@@ -15,7 +15,6 @@ class Request extends Component {
 
 const mapStateToProps = state => {
      return {
-       method: state.test.method,
        uri: state.test.uri,
      }
 }

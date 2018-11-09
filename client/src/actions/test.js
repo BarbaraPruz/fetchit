@@ -9,25 +9,47 @@ function handleAPIErrors(res) {
     return res;   
 }
 
-export function runningTest(method,uri) {
+export function runningTestCheck(uri) {
     return {
-        type: 'RUNNING_TEST',
-        method: method,
+        type: 'RUNNING_TEST_CHECK',
         uri: uri
     };
   }
   
 
-export function runTest(testParams) {
-    let uri = `/api/${testParams.method}/${testParams.responseCode}`;
+export function runTestCheck(testParams) {
+    let uri = `/api/test/${testParams.responseCode}`;
 console.log("Run test URI",uri);
     return (dispatch) => {
-         dispatch(runningTest(testParams.method,uri));
-         fetch(uri)
+         dispatch(runningTestCheck(uri));
+         fetch(uri,{method: 'get'})     
             .then(res => handleAPIErrors(res))                            
             .then(res => res.json())
             .then(res =>{
-                dispatch({type: "RUN_TEST", payload:res})}) 
+                dispatch({type: "RUN_TEST_RESULTS", payload:res})}) 
+            .catch(function(error) {
+                console.log(error);
+            })                     
+    };           
+}
+
+export function runningTestNoCheck(uri) {
+    return {
+        type: 'RUNNING_TEST_NO_CHECK',
+        uri: uri
+    };
+  }
+  
+
+export function runTestNoCheck(testParams) {
+    let uri = `/api/test/${testParams.responseCode}`;
+console.log("Run test URI",uri);
+    return (dispatch) => {
+         dispatch(runningTestNoCheck(uri));
+         fetch(uri,{method: 'get'})                              
+            .then(res => res.json())
+            .then(res =>{
+                dispatch({type: "RUN_TEST_RESULTS", payload:res})}) 
             .catch(function(error) {
                 console.log(error);
             })                     

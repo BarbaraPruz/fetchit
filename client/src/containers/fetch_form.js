@@ -1,50 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { runTest } from '../actions/test'
+import { runTestCheck, runTestNoCheck } from '../actions/test'
 
 class FetchForm extends Component {
 
     state = {
-        method: 'get',
         responseCode: '200',
     }
 
     handleChange = (event) => this.setState({[event.target.name]: event.target.value});
 
-    handleSubmit = (event) => {
+    handleTestNoCheck = (event) => {
         event.preventDefault(); 
-        console.log("Submit for test",this.state);
-        this.props.runTest(this.state);
+        this.props.runTestNoCheck(this.state);
+    }
+
+    handleTestCheck = (event) => {
+        event.preventDefault(); 
+        this.props.runTestCheck(this.state);
     }
 
     render() {            
         return (
             <React.Fragment>
                 <h1>Fetch Form</h1>
-                <form onSubmit={ event => this.handleSubmit(event) }>
-                    <select name="method" value={this.state.method} onChange={ event => this.handleChange(event)}>
-                        <option value="get">Get</option>
-                        <option value="post">Post</option>                    
-                    </select> 
+                <form>
                     <select name="responseCode" value={this.state.responseCode} onChange={ event => this.handleChange(event)}>
                         <option value="200">200</option>
-                        <option value="400">400</option>
-                        <option value="500">500</option>                                            
-                    </select>                                      
-                    <button type="submit" >Test</button>
+                        <option value="400">400</option> 
+                        <option value="500">500</option>                                       
+                    </select>                                    
+                    <button onClick={this.handleTestCheck}>Test with HTTP response check</button>
+                    <button onClick={this.handleTestNoCheck}>Test with No HTTP response check</button>           
                 </form>                
             </React.Fragment> 
         )
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//       isLoggedIn: state.user.isLoggedIn,
-//       newsSources: state.user.newsSources,
-//       headlines: state.news.headlines
-//     }
-//   }
-  
-export default connect(null,{runTest}) (FetchForm);
+export default connect(null,{runTestCheck,runTestNoCheck}) (FetchForm);

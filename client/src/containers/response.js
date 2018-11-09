@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 class Response extends Component {
 
@@ -7,18 +7,16 @@ class Response extends Component {
         return (
             <React.Fragment>
                 <h1>Response</h1>
+                <p>{this.props.responseMessage}</p>
             </React.Fragment> 
         )
     }
 }
 
-// const mapStateToProps = state => {
-//     return {
-//       isLoggedIn: state.user.isLoggedIn,
-//       newsSources: state.user.newsSources,
-//       headlines: state.news.headlines
-//     }
-//   }
+const mapStateToProps = state => {
+    return {
+      responseMessage: state.test.responsePayload
+    }
+  }
   
-// export default connect(mapStateToProps,{getHeadlines}) (HeadlinesContainer);
-export default Response;
+export default connect(mapStateToProps) (Response);
