@@ -1,55 +1,57 @@
 
-function handleAPIErrors(res) {
-    // this is needed to catch 404, 500 errors, etc.
-    console.log("handleAPIErrors",res);
-    console.log("Serialize",JSON.stringify(res));
-    if (!res.ok) {
-        throw Error(res.statusText);
-    }
-    return res;   
-}
 
-export function runningTestCheck(uri) {
+export function trace(msg) {
     return {
-        type: 'RUNNING_TEST_CHECK',
-        uri: uri
+        type: 'TRACE',
+        trace: msg
+    };
+  }
+  
+export function runningTest(uri,isCheckForOK) {
+    return {
+        type: 'RUNNING_TEST',
+        uri: uri,
+        checkForOK: isCheckForOK
     };
   }
   
 
 export function runTestCheck(testParams) {
     let uri = `/api/test/${testParams.responseCode}`;
-console.log("Run test URI",uri);
     return (dispatch) => {
-         dispatch(runningTestCheck(uri));
+         dispatch(runningTest());
+         dispatch(trace(`Test Start for ${uri} with response ok check`));         
+         dispatch(trace("Going to Fetch"));       
          fetch(uri,{method: 'get'})     
-            .then(res => handleAPIErrors(res))                            
+            .then(res => {
+                dispatch(trace("Check For API Errors"));
+                if (!res.ok) {
+                    dispatch(trace("Response not OK!"));        
+                    throw Error(res.statusText);
+                }
+                return res;   
+            })                           
             .then(res => res.json())
             .then(res =>{
-                dispatch({type: "RUN_TEST_RESULTS", payload:res})}) 
+                dispatch(trace("Converted Response to JSON"));
+                dispatch(trace(`Completed Response Processing, Payload: ${res.message}`));}) 
             .catch(function(error) {
                 console.log(error);
             })                     
     };           
 }
 
-export function runningTestNoCheck(uri) {
-    return {
-        type: 'RUNNING_TEST_NO_CHECK',
-        uri: uri
-    };
-  }
-  
-
 export function runTestNoCheck(testParams) {
     let uri = `/api/test/${testParams.responseCode}`;
-console.log("Run test URI",uri);
     return (dispatch) => {
-         dispatch(runningTestNoCheck(uri));
+         dispatch(runningTest());
+         dispatch(trace(`Test Start for ${uri} with no response ok check`));           
+         dispatch(trace("Going to Fetch"));             
          fetch(uri,{method: 'get'})                              
             .then(res => res.json())
             .then(res =>{
-                dispatch({type: "RUN_TEST_RESULTS", payload:res})}) 
+                dispatch(trace("Converted Response to JSON"));                
+                dispatch(trace(`Completed Response Processing, Payload: ${res.message}`))})
             .catch(function(error) {
                 console.log(error);
             })                     
