@@ -32,7 +32,7 @@ export function runTestCheck(testParams) {
          dispatch(trace("Going to Fetch"));       
          fetch(uri,{method: 'get'})     
             .then(res => {
-                dispatch(trace("Check HTTP status ok"));
+                dispatch(trace("Check HTTP status check"));
                 if (!res.ok) {
                     dispatch(trace("Response not OK!"));        
                     throw Error(res.statusText);
@@ -42,7 +42,8 @@ export function runTestCheck(testParams) {
             .then(res => res.json())
             .then(res =>{
                 dispatch(trace("Converted Response to JSON"));
-                dispatch(trace(`Completed Response Processing, Payload: ${res.message}`));}) 
+                dispatch(trace(`Completed Response Processing, Payload: ${res.message}`));
+            }) 
             .catch(function(error) {
                 dispatch(trace(`Detected Fetch Error - ${error}`))
                 console.log(error);
@@ -60,7 +61,8 @@ export function runTestNoCheck(testParams) {
             .then(res => res.json())
             .then(res =>{
                 dispatch(trace("Converted Response to JSON"));                
-                dispatch(trace(`Completed Response Processing, Payload: ${res.message}`))})
+                dispatch(trace(`Completed Response Processing, Payload: ${res.message}`))
+            })
             .catch(function(error) {
                 dispatch(trace(`Detected Fetch Error - ${error}`));              
                 console.log(error);
