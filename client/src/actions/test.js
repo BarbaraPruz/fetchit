@@ -13,11 +13,9 @@ export function clearTrace() {
     };
 }
   
-export function runningTest(uri,isCheckForOK) {
+export function runningTest() {
     return {
         type: 'RUNNING_TEST',
-        uri: uri,
-        checkForOK: isCheckForOK
     };
 }
   
@@ -34,7 +32,7 @@ export function runTestCheck(testParams) {
          dispatch(trace("Going to Fetch"));       
          fetch(uri,{method: 'get'})     
             .then(res => {
-                dispatch(trace("Check For API Errors"));
+                dispatch(trace("Check HTTP status ok"));
                 if (!res.ok) {
                     dispatch(trace("Response not OK!"));        
                     throw Error(res.statusText);

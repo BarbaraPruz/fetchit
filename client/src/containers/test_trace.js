@@ -9,9 +9,11 @@ class TestTrace extends Component {
     render() {            
         return (
             <div className="Trace">
-                <h1>Trace
-                <button className="action-button" onClick={this.handleClick}>Clear</button>
-                </h1>      <ul>
+                <h1>
+                    <button className="action-button" onClick={this.handleClick}>Clear</button>
+                    Trace
+                </h1>      
+                <ul>
                 {this.props.traceDetails.map((msg, id) => <li>{msg}</li>)}
                 </ul>
             </div> 
