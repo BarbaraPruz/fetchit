@@ -7,6 +7,12 @@ export function trace(msg) {
     };
   }
   
+export function clearTrace() {
+    return {
+        type: 'CLEAR_TRACE'
+    };
+}
+  
 export function runningTest(uri,isCheckForOK) {
     return {
         type: 'RUNNING_TEST',

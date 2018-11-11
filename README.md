@@ -1,24 +1,30 @@
-# README
+# fetchit
+small test app to demonstrate how fetch deals with different http status codes. App uses Rails backend to send http responses with different status codes.  Front end is React with Redux.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+*Installation Instructions
+-------------------------
+Fork and clone this GIT repo. 
+Set up backend by running bundle install
+Set up frontend by going to client folder and running npm install
 
-Things you may want to cover:
+*Running fetchit
+------------------   
+rake start
 
-* Ruby version
+On webpage, select status code you want to receive and if you want the app to explicitly
+call response.ok before processing response payload.  (see client/actions/test.js for fetch calls)
 
-* System dependencies
 
-* Configuration
+*Contributing
+------------
+Bug reports and pull requests are welcome on GitHub at https://github.com/'BarbaraPruz'/news4u. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the Contributor Covenant code of conduct.
 
-* Database creation
+*License
+-------
+Open source under the terms of the MIT License.
 
-* Database initialization
+*Code of Conduct
+---------------
+Everyone interacting in the ike project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
