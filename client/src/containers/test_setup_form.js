@@ -8,17 +8,17 @@ class TestSetupForm extends Component {
     state = {
         responseCode: '200',
         responseCheck: 'on',
-   //     route: 'good'
+        route: 'valid'
     }
 
     handleChange = (event) => this.setState({[event.target.name]: event.target.value});
 
     handleSubmit = (event) => {
         event.preventDefault();
-        if (this.state.responseCheck == 'on') 
-            this.props.runTestCheck({responseCode: this.state.responseCode});
+        if (this.state.responseCheck === 'on') 
+            this.props.runTestCheck({route: this.state.route, responseCode: this.state.responseCode});
         else
-            this.props.runTestNoCheck({responseCode: this.state.responseCode});
+            this.props.runTestNoCheck({route: this.state.route, responseCode: this.state.responseCode});
     }
 
     render() {            
@@ -41,12 +41,14 @@ class TestSetupForm extends Component {
                             <option value="off">Off</option>                                      
                         </select> 
                     </div>
-                    {/* <label>Route</label>
-                    <select name="route" value={this.state.route} onChange={ event => this.handleChange(event)}>
-                        <option value="good">Define-Get</option>
-                        <option value="error">Invalid/Undefined</option>                                      
-                    </select>                                                         */}
-                    <button type="submit">Run Test</button>           
+                    <div>
+                        <label>Route</label>
+                        <select name="route" value={this.state.route} onChange={ event => this.handleChange(event)}>
+                            <option value="valid">Valid Route</option>
+                            <option value="invalid">Invalid/Undefined Route</option>                                      
+                        </select> 
+                    </div>                                                        
+                    <button className="action-button" type="submit">Run Test</button>           
                 </form>                
             </div> 
         )

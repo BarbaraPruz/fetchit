@@ -12,7 +12,8 @@ Set up frontend by going to client folder and running npm install
 rake start
 
 On webpage, select status code you want to receive and if you want the app to explicitly
-call response.ok before processing response payload.  (see client/actions/test.js for fetch calls)
+call response.ok before processing response payload. You can also select an invalid route
+to see that behavior. (see client/actions/test.js for fetch calls)
 
 
 *Contributing

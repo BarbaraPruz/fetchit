@@ -19,11 +19,15 @@ export function runningTest(uri,isCheckForOK) {
         uri: uri,
         checkForOK: isCheckForOK
     };
-  }
+}
   
+function buildURI (routeChoice, responseCode) {
+    let route = routeChoice ==='valid' ? "test" : "invalid";
+    return `/api/${route}/${responseCode}`;    
+}
 
 export function runTestCheck(testParams) {
-    let uri = `/api/test/${testParams.responseCode}`;
+    let uri = buildURI(testParams.route,testParams.responseCode);
     return (dispatch) => {
          dispatch(runningTest());
          dispatch(trace(`Test Start for ${uri} with response ok check`));         
@@ -42,13 +46,14 @@ export function runTestCheck(testParams) {
                 dispatch(trace("Converted Response to JSON"));
                 dispatch(trace(`Completed Response Processing, Payload: ${res.message}`));}) 
             .catch(function(error) {
+                dispatch(trace(`Detected Fetch Error - ${error}`))
                 console.log(error);
             })                     
     };           
 }
 
 export function runTestNoCheck(testParams) {
-    let uri = `/api/test/${testParams.responseCode}`;
+    let uri = buildURI(testParams.route,testParams.responseCode);
     return (dispatch) => {
          dispatch(runningTest());
          dispatch(trace(`Test Start for ${uri} with no response ok check`));           
@@ -59,6 +64,7 @@ export function runTestNoCheck(testParams) {
                 dispatch(trace("Converted Response to JSON"));                
                 dispatch(trace(`Completed Response Processing, Payload: ${res.message}`))})
             .catch(function(error) {
+                dispatch(trace(`Detected Fetch Error - ${error}`));              
                 console.log(error);
             })                     
     };           
